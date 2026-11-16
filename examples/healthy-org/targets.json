@@ -1,0 +1,16 @@
+{
+  "Targets": {
+    "p-FullAWSAccess": [
+      { "TargetId": "r-ex01", "Name": "Root", "Type": "ROOT" },
+      { "TargetId": "111111111111", "Name": "management", "Type": "ACCOUNT" },
+      { "TargetId": "222222222222", "Name": "workloads-prod", "Type": "ACCOUNT" },
+      { "TargetId": "333333333333", "Name": "workloads-stage", "Type": "ACCOUNT" }
+    ],
+    "p-regionlock01": [
+      { "TargetId": "r-ex01", "Name": "Root", "Type": "ROOT" }
+    ],
+    "p-denyroot002": [
+      { "TargetId": "ou-ex01-workloads", "Name": "Workloads", "Type": "ORGANIZATIONAL_UNIT" }
+    ]
+  }
+}

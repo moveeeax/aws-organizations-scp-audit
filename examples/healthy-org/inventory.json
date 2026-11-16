@@ -1,0 +1,18 @@
+{
+  "Organization": {
+    "Id": "o-exampleorg",
+    "MasterAccountId": "111111111111",
+    "FeatureSet": "ALL"
+  },
+  "Roots": [
+    { "Id": "r-ex01", "Name": "Root" }
+  ],
+  "OrganizationalUnits": [
+    { "Id": "ou-ex01-workloads", "Name": "Workloads", "ParentId": "r-ex01" }
+  ],
+  "Accounts": [
+    { "Id": "111111111111", "Name": "management", "Status": "ACTIVE", "ParentId": "r-ex01" },
+    { "Id": "222222222222", "Name": "workloads-prod", "Status": "ACTIVE", "ParentId": "ou-ex01-workloads" },
+    { "Id": "333333333333", "Name": "workloads-stage", "Status": "ACTIVE", "ParentId": "ou-ex01-workloads" }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "Policies": [
+    {
+      "Id": "p-FullAWSAccess",
+      "Arn": "arn:aws:organizations::aws:policy/service_control_policy/p-FullAWSAccess",
+      "Name": "FullAWSAccess",
+      "Description": "Allows access to every operation",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": true
+    },
+    {
+      "Id": "p-regionlock01",
+      "Arn": "arn:aws:organizations::111111111111:policy/o-exampleorg/service_control_policy/p-regionlock01",
+      "Name": "RegionLockEU",
+      "Description": "Deny everything outside the EU regions, global services excepted",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    },
+    {
+      "Id": "p-denyroot002",
+      "Arn": "arn:aws:organizations::111111111111:policy/o-exampleorg/service_control_policy/p-denyroot002",
+      "Name": "DenyRootUser",
+      "Description": "Deny every call made by an account root user",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    }
+  ]
+}

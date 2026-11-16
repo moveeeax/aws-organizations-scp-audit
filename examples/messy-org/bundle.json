@@ -1,0 +1,194 @@
+{
+  "Organization": {
+    "Id": "o-messyorg",
+    "MasterAccountId": "111111111111",
+    "FeatureSet": "ALL"
+  },
+  "Policies": [
+    {
+      "Id": "p-FullAWSAccess",
+      "Name": "FullAWSAccess",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": true
+    },
+    {
+      "Id": "p-noattach001",
+      "Name": "DenyLeaveOrganization",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false,
+      "Description": "Reviewed in the governance meeting, attached to nothing ever since"
+    },
+    {
+      "Id": "p-allowonly02",
+      "Name": "AllowSandboxServices",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    },
+    {
+      "Id": "p-inertcond03",
+      "Name": "DenyUntaggedInstances",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    },
+    {
+      "Id": "p-denyall0004",
+      "Name": "EmergencyLockdown",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    },
+    {
+      "Id": "p-broken00005",
+      "Name": "ImportedGuardrail",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    },
+    {
+      "Id": "p-dup0000006",
+      "Name": "DenyLeaveOrgCopy",
+      "Type": "SERVICE_CONTROL_POLICY",
+      "AwsManaged": false
+    }
+  ],
+  "Documents": {
+    "p-noattach001": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"DenyLeave\",\"Effect\":\"Deny\",\"Action\":[\"organizations:LeaveOrganization\"],\"Resource\":\"*\"}]}",
+    "p-allowonly02": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"SandboxServices\",\"Effect\":\"Allow\",\"Action\":[\"s3:*\",\"ec2:*\",\"logs:*\"],\"Resource\":\"*\"}]}",
+    "p-inertcond03": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"RequireCostCenterTag\",\"Effect\":\"Deny\",\"Action\":[\"ec2:RunInstances\"],\"Resource\":\"*\",\"Condition\":{\"StringNotEquals\":{\"aws:RequestTag/CostCenter\":[\"platform\",\"data\"]}}},{\"Sid\":\"RequireEncryptedUploads\",\"Effect\":\"Deny\",\"Action\":[\"s3:PutObject\"],\"Resource\":\"*\",\"Condition\":{\"StringEquals\":{\"ec2:InstanceType\":\"t3.micro\"}}}]}",
+    "p-denyall0004": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"Lockdown\",\"Effect\":\"Deny\",\"Action\":\"*\",\"Resource\":\"*\"}]}",
+    "p-broken00005": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"Truncated\",\"Effect\":\"Deny\",",
+    "p-dup0000006": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"DenyLeaveA\",\"Effect\":\"Deny\",\"Action\":[\"organizations:LeaveOrganization\"],\"Resource\":\"*\"},{\"Sid\":\"DenyLeaveB\",\"Effect\":\"Deny\",\"Action\":[\"organizations:LeaveOrganization\"],\"Resource\":\"*\"}]}"
+  },
+  "Targets": {
+    "p-FullAWSAccess": [
+      {
+        "TargetId": "r-ms01",
+        "Name": "Root",
+        "Type": "ROOT"
+      },
+      {
+        "TargetId": "111111111111",
+        "Name": "management",
+        "Type": "ACCOUNT"
+      },
+      {
+        "TargetId": "444444444444",
+        "Name": "sandbox",
+        "Type": "ACCOUNT"
+      },
+      {
+        "TargetId": "555555555555",
+        "Name": "legacy-billing",
+        "Type": "ACCOUNT"
+      },
+      {
+        "TargetId": "666666666666",
+        "Name": "data-platform",
+        "Type": "ACCOUNT"
+      },
+      {
+        "TargetId": "999999999999",
+        "Name": "closed-experiment",
+        "Type": "ACCOUNT"
+      },
+      {
+        "TargetId": "ou-ms01-crowded",
+        "Name": "DataPlatform",
+        "Type": "ORGANIZATIONAL_UNIT"
+      }
+    ],
+    "p-noattach001": [],
+    "p-allowonly02": [
+      {
+        "TargetId": "ou-ms01-sandbox",
+        "Name": "Sandbox",
+        "Type": "ORGANIZATIONAL_UNIT"
+      },
+      {
+        "TargetId": "ou-ms01-crowded",
+        "Name": "DataPlatform",
+        "Type": "ORGANIZATIONAL_UNIT"
+      }
+    ],
+    "p-inertcond03": [
+      {
+        "TargetId": "ou-ms01-sandbox",
+        "Name": "Sandbox",
+        "Type": "ORGANIZATIONAL_UNIT"
+      },
+      {
+        "TargetId": "ou-ms01-crowded",
+        "Name": "DataPlatform",
+        "Type": "ORGANIZATIONAL_UNIT"
+      }
+    ],
+    "p-denyall0004": [
+      {
+        "TargetId": "444444444444",
+        "Name": "sandbox",
+        "Type": "ACCOUNT"
+      }
+    ],
+    "p-broken00005": [
+      {
+        "TargetId": "ou-ms01-crowded",
+        "Name": "DataPlatform",
+        "Type": "ORGANIZATIONAL_UNIT"
+      }
+    ],
+    "p-dup0000006": [
+      {
+        "TargetId": "ou-ms01-crowded",
+        "Name": "DataPlatform",
+        "Type": "ORGANIZATIONAL_UNIT"
+      }
+    ]
+  },
+  "Roots": [
+    {
+      "Id": "r-ms01",
+      "Name": "Root"
+    }
+  ],
+  "OrganizationalUnits": [
+    {
+      "Id": "ou-ms01-sandbox",
+      "Name": "Sandbox",
+      "ParentId": "r-ms01"
+    },
+    {
+      "Id": "ou-ms01-legacy",
+      "Name": "Legacy",
+      "ParentId": "r-ms01"
+    },
+    {
+      "Id": "ou-ms01-crowded",
+      "Name": "DataPlatform",
+      "ParentId": "r-ms01"
+    }
+  ],
+  "Accounts": [
+    {
+      "Id": "111111111111",
+      "Name": "management",
+      "Status": "ACTIVE",
+      "ParentId": "r-ms01"
+    },
+    {
+      "Id": "444444444444",
+      "Name": "sandbox",
+      "Status": "ACTIVE",
+      "ParentId": "ou-ms01-sandbox"
+    },
+    {
+      "Id": "555555555555",
+      "Name": "legacy-billing",
+      "Status": "ACTIVE",
+      "ParentId": "ou-ms01-legacy"
+    },
+    {
+      "Id": "666666666666",
+      "Name": "data-platform",
+      "Status": "ACTIVE",
+      "ParentId": "ou-ms01-crowded"
+    }
+  ]
+}

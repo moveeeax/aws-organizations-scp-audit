@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aws-organizations-scp-audit"
+version = "0.1.0"
+description = "Audit AWS Organizations service control policies offline from list-policies / describe-policy / list-targets-for-policy output"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Michael Tarassov", email = "michael@tarassov.me" }]
+keywords = ["aws", "organizations", "scp", "audit", "security", "governance", "compliance"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: System :: Systems Administration",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/moveeeax/aws-organizations-scp-audit"
+Issues = "https://github.com/moveeeax/aws-organizations-scp-audit/issues"
+
+[project.scripts]
+aws-organizations-scp-audit = "scp_audit.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["scp_audit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
